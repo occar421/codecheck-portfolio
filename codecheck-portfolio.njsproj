@@ -18,7 +18,7 @@
     <StartWebBrowser>False</StartWebBrowser>
     <NodejsPort>
     </NodejsPort>
-    <DebuggerPort>5000</DebuggerPort>
+    <DebuggerPort>3000</DebuggerPort>
     <LaunchUrl>
     </LaunchUrl>
   </PropertyGroup>
@@ -31,6 +31,7 @@
     </None>
     <Content Include="account.json" />
     <Content Include="package.json" />
+    <Content Include="public\main.css" />
     <Content Include="README.md" />
     <Content Include="README_ja.md" />
     <Compile Include="specifications\heroku\DELETE-api-projects_id.spec.js">
@@ -70,6 +71,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="public\" />
     <Folder Include="specifications" />
     <Folder Include="specifications\heroku" />
     <Folder Include="specifications\localhost" />
