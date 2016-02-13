@@ -1,5 +1,5 @@
 {
-	"name": "challenge-portfolio",
+	"name": "portfolio-by-MasuqaT",
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
@@ -15,13 +15,16 @@
 	"engines": {
 		"node": "4.x"
 	},
-	"author": "Givery, Inc.",
+	"author": "MasuqaT",
 	"license": "ISC",
 	"devDependencies": {
 		"api-first-spec": "^0.2.9",
 		"chai": "^3.4.1",
 		"mocha": "^2.3.4",
-		"request": "^2.67.0",
+		"request": "^2.67.0"
+	},
+	"dependencies": {
+		"body-parser": "^1.15.0",
 		"express": "^4.13.4"
 	}
 }

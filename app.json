@@ -1,0 +1,17 @@
+{
+  "name": "Port Photon",
+  "description": "SPRINT app by MasuqaT",
+  "keywords": [
+    "codecheck",
+		"challenge",
+		"portfolio"
+  ],
+  "addons": [
+    "heroku-postgresql:hobby-dev"
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-nodejs"
+    }
+  ]
+}
