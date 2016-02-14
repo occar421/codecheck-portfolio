@@ -279,3 +279,6 @@ _Pvt_Extensions
 
 # js map file for typescript debug
 *.js.map
+
+# .env file in local
+.env
