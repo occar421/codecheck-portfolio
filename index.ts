@@ -2,6 +2,7 @@
 
 import express = require('express');
 import parser = require('body-parser');
+import pg = require('pg');
 var app = express();
 var port = process.env.PORT || 3000;
 

@@ -1,6 +1,7 @@
 /// <reference path="typings/main.d.ts" />
 var express = require('express');
 var parser = require('body-parser');
+var pg = require('pg');
 var app = express();
 var port = process.env.PORT || 3000;
 app.use(parser.json());
