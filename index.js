@@ -14,7 +14,15 @@ db_con_string += '?ssl=true';
 app.use(parser.json());
 app.use(express.static(__dirname + '/public'));
 app.get('/api/projects', function (req, res, next) {
-    res.json('Some data...');
+    pg.connect(db_con_string, function (error, client, done) {
+        client.query('SELECT * FROM projects', function (error, result) {
+            done();
+            if (!error) {
+                res.json(result.rows);
+            }
+        });
+    });
+});
     return next();
 });
 app.listen(port, function () {

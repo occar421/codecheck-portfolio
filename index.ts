@@ -17,8 +17,14 @@ app.use(parser.json());
 app.use(express.static(__dirname + '/public'));
 
 app.get('/api/projects', (req, res, next) => {
-	res.json('Some data...');
-	return next();
+	pg.connect(db_con_string, (error, client, done) => {
+		client.query('SELECT * FROM projects', (error, result) => {
+			done();
+			if (!error) {
+				res.json(result.rows);
+			}
+		});
+	});
 });
 
 app.listen(port, () => {
