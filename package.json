@@ -1,5 +1,5 @@
 {
-	"name": "portfolio-by-MasuqaT",
+	"name": "portphoton",
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
@@ -21,7 +21,8 @@
 		"api-first-spec": "^0.2.9",
 		"chai": "^3.4.1",
 		"mocha": "^2.3.4",
-		"request": "^2.67.0"
+		"request": "^2.67.0",
+		"fs": "^0.0.2"
 	},
 	"dependencies": {
 		"body-parser": "^1.15.0",
