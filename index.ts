@@ -38,11 +38,14 @@ app.post('/api/projects', (req, res, next) => {
 		return next();
 	}
 
-	// to SQL
-	var dummy = { id: -1, url: "hoge", title: "tit", description: "desc" };
-
-	res.json(dummy);
-	//return next();
+	pg.connect(db_con_string, (error, client, done) => {
+		client.query("INSERT INTO projects(url, title, description) VALUES('" + url + "', '" + title + "', '" + description + "') RETURNING *;", (error, result) => {
+			done();
+			if (!error) {
+				res.json(result.rows[0]);
+			}
+		});
+	});
 });
 
 app.listen(port, () => {
