@@ -13,6 +13,7 @@ var db_con_string: string = process.env.DATABASE_URL || (() => { // for Visual S
 })();
 db_con_string += '?ssl=true';
 
+app.use(parser.urlencoded({ extended: false }));
 app.use(parser.json());
 app.use(express.static(__dirname + '/public'));
 
@@ -25,6 +26,23 @@ app.get('/api/projects', (req, res, next) => {
 			}
 		});
 	});
+});
+
+app.post('/api/projects', (req, res, next) => {
+	var title = req.body.title;
+	var description = req.body.description;
+	var url = req.body.url;
+
+	if (title == null || description == null) {
+		res.status(400).json('BadRequest');
+		return next();
+	}
+
+	// to SQL
+	var dummy = { id: -1, url: "hoge", title: "tit", description: "desc" };
+
+	res.json(dummy);
+	//return next();
 });
 
 app.listen(port, () => {
