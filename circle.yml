@@ -1,0 +1,15 @@
+machine:
+  environment:
+    DATABASE_URL: postgres://ubuntu:@127.0.0.1:5432/circle_test
+    PORT: 3000
+
+database:
+  override:
+    - psql -U ubuntu -d circle_test -f specifications/projects.sql
+
+test:
+  pre:
+    - npm start:
+        background: true
+  override:
+    - mocha specifications/localhost
