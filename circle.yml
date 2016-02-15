@@ -4,7 +4,7 @@ machine:
 
 database:
   override:
-    - psql -u ubuntu circle_test -f specifications/projects.sql
+    - psql -U ubuntu -d circle_test -f specifications/projects.sql
 
 test:
   override:
