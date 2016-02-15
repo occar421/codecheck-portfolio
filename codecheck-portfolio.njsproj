@@ -24,6 +24,7 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
+    <Content Include="views\pages\index.ejs" />
     <Content Include="account.json" />
     <Content Include="package.json" />
     <Content Include="public\main.css" />
@@ -66,10 +67,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="views\" />
     <Folder Include="public\" />
     <Folder Include="specifications" />
     <Folder Include="specifications\heroku" />
     <Folder Include="specifications\localhost" />
+    <Folder Include="views\pages\" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="index.ts" />

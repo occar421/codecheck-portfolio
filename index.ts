@@ -21,6 +21,8 @@ process.on('exit', () => { client.end(); });
 app.use(parser.urlencoded({ extended: false }));
 app.use(parser.json());
 app.use(express.static(__dirname + '/public'));
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
 
 app.get('/api/projects', (req, res, next) => {
 	const sql = 'SELECT * FROM projects';
@@ -89,6 +91,10 @@ app.delete('/api/projects/:id', (req, res, next) => {
 		}
 		return next();
 	});
+});
+
+app.get('/', (req, res, next) => {
+	res.render('pages/index');
 });
 
 app.listen(port, () => {

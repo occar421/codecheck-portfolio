@@ -19,6 +19,8 @@ process.on('exit', function () { client.end(); });
 app.use(parser.urlencoded({ extended: false }));
 app.use(parser.json());
 app.use(express.static(__dirname + '/public'));
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
 app.get('/api/projects', function (req, res, next) {
     var sql = 'SELECT * FROM projects';
     client.query(sql, function (error, result) {
@@ -87,6 +89,9 @@ app.delete('/api/projects/:id', function (req, res, next) {
         }
         return next();
     });
+});
+app.get('/', function (req, res, next) {
+    res.render('pages/index');
 });
 app.listen(port, function () {
     console.log('Server running with port', port);
