@@ -7,6 +7,7 @@ database:
     - psql -U ubuntu -d circle_test -f specifications/projects.sql
 
 test:
+  pre:
+    - npm start &
   override:
-    - node index.js
     - mocha specifications/localhost
