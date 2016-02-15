@@ -11,8 +11,10 @@ var db_con_string: string = process.env.DATABASE_URL || (() => { // for Visual S
 	var str_line = str.split(/\r?\n/).filter((v, i, a) => v.lastIndexOf('DATABASE_URL', 0) == 0)[0];
 	return str_line.split("=")[1];
 })();
-db_con_string += '?ssl=true';
 var client = new pg.Client(db_con_string);
+client.on('error', (error) => {
+	console.log(error.message);
+});
 client.connect();
 process.on('exit', () => { client.end(); });
 
