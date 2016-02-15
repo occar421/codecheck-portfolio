@@ -1,0 +1,8 @@
+﻿database:
+    override:
+        - psql -u ubuntu circle_test -f specifications/projects.sql
+
+test:
+    override:
+        - node index.js
+        - mocha specifications/localhost
