@@ -10,8 +10,10 @@ var db_con_string = process.env.DATABASE_URL || (function () {
     var str_line = str.split(/\r?\n/).filter(function (v, i, a) { return v.lastIndexOf('DATABASE_URL', 0) == 0; })[0];
     return str_line.split("=")[1];
 })();
-db_con_string += '?ssl=true';
 var client = new pg.Client(db_con_string);
+client.on('error', function (error) {
+    console.log(error.message);
+});
 client.connect();
 process.on('exit', function () { client.end(); });
 app.use(parser.urlencoded({ extended: false }));
