@@ -50,6 +50,24 @@ app.post('/api/projects', function (req, res, next) {
         return next();
     });
 });
+app.get('/api/projects/:id', function (req, res, next) {
+    var sql = 'SELECT * FROM projects WHERE id=$1';
+    client.query(sql, [req.params.id], function (error, result) {
+        if (error) {
+            console.log(error.message);
+            res.status(500).json(error);
+        }
+        else {
+            if (result.rows.length != 0) {
+                res.json(result.rows[0]);
+            }
+            else {
+                res.status(404).json('NotFound');
+            }
+        }
+        return next();
+    });
+});
 app.listen(port, function () {
     console.log('Server running with port', port);
 });
