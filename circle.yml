@@ -8,6 +8,7 @@ database:
 
 test:
   pre:
-    - npm start &
+    - npm start:
+      background: true
   override:
     - mocha specifications/localhost
