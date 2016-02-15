@@ -72,6 +72,23 @@ app.get('/api/projects/:id', (req, res, next) => {
 	});
 });
 
+app.delete('/api/projects/:id', (req, res, next) => {
+	const sql = 'DELETE FROM projects WHERE id=$1 RETURNING id';
+	client.query(sql, [req.params.id], (error, result) => {
+		if (error) {
+			console.log(error.message);
+			res.status(500).json(error);
+		} else {
+			if (result.rows.length != 0) {
+				res.json(req.params.id);
+			} else {
+				res.status(404).json('NotFound');
+			}
+		}
+		return next();
+	});
+});
+
 app.listen(port, () => {
 	console.log('Server running with port', port);
 });
