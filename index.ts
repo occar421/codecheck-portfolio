@@ -12,19 +12,24 @@ var db_con_string: string = process.env.DATABASE_URL || (() => { // for Visual S
 	return str_line.split("=")[1];
 })();
 db_con_string += '?ssl=true';
+var client = new pg.Client(db_con_string);
+client.connect();
+process.on('exit', () => { client.end(); });
 
 app.use(parser.urlencoded({ extended: false }));
 app.use(parser.json());
 app.use(express.static(__dirname + '/public'));
 
 app.get('/api/projects', (req, res, next) => {
-	pg.connect(db_con_string, (error, client, done) => {
-		client.query('SELECT * FROM projects', (error, result) => {
-			done();
-			if (!error) {
-				res.json(result.rows);
-			}
-		});
+	const sql = 'SELECT * FROM projects';
+	client.query(sql, (error, result) => {
+		if (error) {
+			console.log(error.message);
+			res.status(500).json('Error');
+		} else {
+			res.json(result.rows);
+		}
+		return next();
 	});
 });
 
@@ -38,13 +43,15 @@ app.post('/api/projects', (req, res, next) => {
 		return next();
 	}
 
-	pg.connect(db_con_string, (error, client, done) => {
-		client.query("INSERT INTO projects(url, title, description) VALUES('" + url + "', '" + title + "', '" + description + "') RETURNING *;", (error, result) => {
-			done();
-			if (!error) {
-				res.json(result.rows[0]);
-			}
-		});
+	const sql = 'INSERT INTO projects(url, title, description) VALUES($1, $2, $3) RETURNING *;'
+	client.query(sql, [url, title, description], (error, result) => {
+		if (error) {
+			console.log(error.message);
+			res.status(500).json('Error');
+		} else {
+			res.json(result.rows[0]);
+		}
+		return next();
 	});
 });
 

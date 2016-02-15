@@ -11,17 +11,23 @@ var db_con_string = process.env.DATABASE_URL || (function () {
     return str_line.split("=")[1];
 })();
 db_con_string += '?ssl=true';
+var client = new pg.Client(db_con_string);
+client.connect();
+process.on('exit', function () { client.end(); });
 app.use(parser.urlencoded({ extended: false }));
 app.use(parser.json());
 app.use(express.static(__dirname + '/public'));
 app.get('/api/projects', function (req, res, next) {
-    pg.connect(db_con_string, function (error, client, done) {
-        client.query('SELECT * FROM projects', function (error, result) {
-            done();
-            if (!error) {
-                res.json(result.rows);
-            }
-        });
+    var sql = 'SELECT * FROM projects';
+    client.query(sql, function (error, result) {
+        if (error) {
+            console.log(error.message);
+            res.status(500).json('Error');
+        }
+        else {
+            res.json(result.rows);
+        }
+        return next();
     });
 });
 app.post('/api/projects', function (req, res, next) {
@@ -32,13 +38,16 @@ app.post('/api/projects', function (req, res, next) {
         res.status(400).json('BadRequest');
         return next();
     }
-    pg.connect(db_con_string, function (error, client, done) {
-        client.query("INSERT INTO projects(url, title, description) VALUES('" + url + "', '" + title + "', '" + description + "') RETURNING *;", function (error, result) {
-            done();
-            if (!error) {
-                res.json(result.rows[0]);
-            }
-        });
+    var sql = 'INSERT INTO projects(url, title, description) VALUES($1, $2, $3) RETURNING *;';
+    client.query(sql, [url, title, description], function (error, result) {
+        if (error) {
+            console.log(error.message);
+            res.status(500).json('Error');
+        }
+        else {
+            res.json(result.rows[0]);
+        }
+        return next();
     });
 });
 app.listen(port, function () {
