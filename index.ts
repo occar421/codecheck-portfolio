@@ -3,6 +3,7 @@
 import express = require('express');
 import parser = require('body-parser');
 import pg = require('pg');
+import request = require('request');
 var app = express();
 var port: number = process.env.PORT || 3000;
 var db_con_string: string = process.env.DATABASE_URL || (() => { // for Visual Studio debug
@@ -94,7 +95,20 @@ app.delete('/api/projects/:id', (req, res, next) => {
 });
 
 app.get('/', (req, res, next) => {
-	res.render('pages/index');
+	request.get({ url: 'http://localhost:' + port + '/api/projects', json: true }, (error, result, body) => {
+		if (error) {
+			console.log(error.message);
+			res.status(500).json('Error');
+		} else {
+			if (result.statusCode == 200) {
+				res.render('main', { results: body });
+			} else {
+				console.log('error status code: ' + result.statusCode);
+				res.status(500).json('Error');
+			}
+		}
+		return next();
+	});
 });
 
 app.listen(port, () => {

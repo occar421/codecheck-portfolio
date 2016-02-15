@@ -2,9 +2,11 @@
   "ambientDependencies": {
     "body-parser": "github:DefinitelyTyped/DefinitelyTyped/body-parser/body-parser.d.ts#9a2c50ea846ee6ae36feaea0accc77ae7b08a748",
     "express": "github:DefinitelyTyped/DefinitelyTyped/express/express.d.ts#dd638012d63e069f2c99d06ef4dcc9616a943ee4",
+    "form-data": "github:DefinitelyTyped/DefinitelyTyped/form-data/form-data.d.ts#bb1b99052bf1d697f0368fbff56898bc1f5a525c",
     "mime": "github:DefinitelyTyped/DefinitelyTyped/mime/mime.d.ts#cb5206a8ac1c9a3ddfd126f5ecea6729b2361452",
     "node": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#aee0039a2d6686ec78352125010ebb38a7a7d743",
     "pg": "github:DefinitelyTyped/DefinitelyTyped/pg/pg.d.ts#8fb6309e8d96aefa1f2b2e6c9961d10cc136ae06",
+    "request": "github:DefinitelyTyped/DefinitelyTyped/request/request.d.ts#90c7b5653c973cbc8c568ba33c8a04fb478525ee",
     "serve-static": "github:DefinitelyTyped/DefinitelyTyped/serve-static/serve-static.d.ts#0fa4e9e61385646ea6a4cba2aef357353d2ce77f"
   }
 }

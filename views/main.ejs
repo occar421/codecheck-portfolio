@@ -1,0 +1,15 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Port Photon</title>
+</head>
+<body>
+	<p>List</p>
+<dl>
+<% results.forEach(function(r) { %>
+	<dt><%= r.title %><dt>
+	<dd><%= r.description %></dd>
+<% }) %>
+</dl>
+</body>
+</html>

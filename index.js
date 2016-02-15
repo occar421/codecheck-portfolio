@@ -2,6 +2,7 @@
 var express = require('express');
 var parser = require('body-parser');
 var pg = require('pg');
+var request = require('request');
 var app = express();
 var port = process.env.PORT || 3000;
 var db_con_string = process.env.DATABASE_URL || (function () {
@@ -91,7 +92,22 @@ app.delete('/api/projects/:id', function (req, res, next) {
     });
 });
 app.get('/', function (req, res, next) {
-    res.render('pages/index');
+    request.get({ url: 'http://localhost:' + port + '/api/projects', json: true }, function (error, result, body) {
+        if (error) {
+            console.log(error.message);
+            res.status(500).json('Error');
+        }
+        else {
+            if (result.statusCode == 200) {
+                res.render('main', { results: body });
+            }
+            else {
+                console.log('error status code: ' + result.statusCode);
+                res.status(500).json('Error');
+            }
+        }
+        return next();
+    });
 });
 app.listen(port, function () {
     console.log('Server running with port', port);
