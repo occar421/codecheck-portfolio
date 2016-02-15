@@ -1,8 +1,12 @@
-﻿database:
-    override:
-        - psql -u ubuntu circle_test -f specifications/projects.sql
+machine:
+  environment:
+    DATABASE_URL: postgres://ubuntu:@127.0.0.1:5432/circle_test
+
+database:
+  override:
+    - psql -u ubuntu circle_test -f specifications/projects.sql
 
 test:
-    override:
-        - node index.js
-        - mocha specifications/localhost
+  override:
+    - node index.js
+    - mocha specifications/localhost
