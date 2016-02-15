@@ -24,10 +24,6 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
-    <None Include="Procfile">
-      <SubType>Code</SubType>
-      <TestFramework>Mocha</TestFramework>
-    </None>
     <Content Include="account.json" />
     <Content Include="package.json" />
     <Content Include="public\main.css" />
