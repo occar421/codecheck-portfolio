@@ -30,7 +30,7 @@
     </None>
     <Content Include="account.json" />
     <Content Include="package.json" />
-    <Content Include="public\main.css" />
+    <Content Include="public\index.html" />
     <Content Include="README.md" />
     <Content Include="README_ja.md" />
     <Compile Include="specifications\heroku\DELETE-api-projects_id.spec.js">
@@ -71,12 +71,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="public\" />
+    <Folder Include="public\app\" />
     <Folder Include="specifications" />
     <Folder Include="specifications\heroku" />
     <Folder Include="specifications\localhost" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="index.ts" />
+    <TypeScriptCompile Include="public\app\app.component.ts" />
+    <TypeScriptCompile Include="public\app\main.ts" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <!--Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them.-->
