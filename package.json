@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"start": "cd ./public && npm run setup && cd ../ && node index.js",
+		"start": "node index.js",
 		"test": "mocha --recursive specifications"
 	},
 	"repository": {

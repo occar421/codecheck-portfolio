@@ -2,21 +2,31 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta charset="utf-8" />
-	<title></title>
+
+	<!-- <title>&#x1E54;&#x1ED9;&#x1E5D;&#x0167; &#x01A4;&#x0127;&#x014F;&#x0163;&#x01A1;&#x014B;</title> -->
+	<title>&#x01A4;ort &#x01A4;hoto&#x014B;</title>
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/vue/latest/vue.min.js"></script>
 </head>
 <body>
 	<div id="app">
-		<p>{{ message }}</p>
-		<input type="text" v-model="message" />
 		<ul>
 			<li v-for="aProject in projects">
 				<button @click="getProjectDetail(aProject.id)">{{ aProject.id }}</button>
 			</li>
 		</ul>
-		<button @click="reverse">Reverse Message</button>
-		<button @click="getProjects">Get Projects</button>
+		<p v-if="projectDetail">{{ projectDetail.title }}</p>
 	</div>
 
-	<script src="bundle.js"></script>
+	<!-- jQuery first, then Bootstrap JS. -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+	<script src="./app.js"></script>
+	<script>
+		vm.getProjects();
+	</script>
 </body>
 </html>

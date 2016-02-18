@@ -35,7 +35,6 @@
     <Content Include="account.json" />
     <Content Include="package.json" />
     <Content Include="public\index.html" />
-    <Content Include="public\package.json" />
     <Content Include="README.md" />
     <Content Include="README_ja.md" />
     <Compile Include="specifications\heroku\DELETE-api-projects_id.spec.js">
