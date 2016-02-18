@@ -20,6 +20,10 @@
     <DebuggerPort>5000</DebuggerPort>
     <LaunchUrl>
     </LaunchUrl>
+    <NodeExeArguments>
+    </NodeExeArguments>
+    <ScriptArguments>
+    </ScriptArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
@@ -30,7 +34,8 @@
     </None>
     <Content Include="account.json" />
     <Content Include="package.json" />
-    <Content Include="public\main.css" />
+    <Content Include="public\index.html" />
+    <Content Include="public\package.json" />
     <Content Include="README.md" />
     <Content Include="README_ja.md" />
     <Compile Include="specifications\heroku\DELETE-api-projects_id.spec.js">
@@ -77,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="index.ts" />
+    <TypeScriptCompile Include="public\app.ts" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <!--Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them.-->

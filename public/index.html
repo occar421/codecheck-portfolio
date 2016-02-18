@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+</head>
+<body>
+	<div id="app">
+		<p>{{ message }}</p>
+		<input type="text" v-model="message" />
+		<ul>
+			<li v-for="aProject in projects">
+				<button @click="getProjectDetail(aProject.id)">{{ aProject.id }}</button>
+			</li>
+		</ul>
+		<button @click="reverse">Reverse Message</button>
+		<button @click="getProjects">Get Projects</button>
+	</div>
+
+	<script src="bundle.js"></script>
+</body>
+</html>

@@ -4,3 +4,5 @@
 /// <reference path="main\ambient\node\node.d.ts" />
 /// <reference path="main\ambient\pg\pg.d.ts" />
 /// <reference path="main\ambient\serve-static\serve-static.d.ts" />
+/// <reference path="main\ambient\superagent\superagent.d.ts" />
+/// <reference path="main\ambient\vue\vue.d.ts" />
