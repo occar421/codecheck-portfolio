@@ -1,32 +1,121 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
 	<meta charset="utf-8" />
 
-	<!-- <title>&#x1E54;&#x1ED9;&#x1E5D;&#x0167; &#x01A4;&#x0127;&#x014F;&#x0163;&#x01A1;&#x014B;</title> -->
 	<title>&#x01A4;ort &#x01A4;hoto&#x014B;</title>
 
-	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
-
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link href='https://fonts.googleapis.com/css?family=Courgette|Lato' rel='stylesheet' type='text/css'>
+	<link href="style.css" rel="stylesheet" />
 	<script src="https://cdn.jsdelivr.net/vue/latest/vue.min.js"></script>
 </head>
+
 <body>
 	<div id="app">
-		<ul>
-			<li v-for="aProject in projects">
-				<button @click="getProjectDetail(aProject.id)">{{ aProject.id }}</button>
-			</li>
-		</ul>
-		<p v-if="projectDetail">{{ projectDetail.title }}</p>
-	</div>
+		<nav class="navbar navbar-fixed-top navbar-light bg-faded">
+			<h4 class="navbar-brand">Port Photo&#x014B;</h4>
+			<div class="dropdown pull-xs-right">
+				<span>Tag filter </span>
+				<button class="btn btn-secondary dropdown-toggle" type="button" id="TagsMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ currentTag }}</button>
+				<div class="dropdown-menu" aria-labelledby="TagsMenu">
+					<button @click="getTaggedProjects('All')" class="dropdown-item" type="button">All</button>
+					<button v-for="aTag in tags" @click="getTaggedProjects(aTag)" class="dropdown-item" type="button">{{ aTag }}</button>
+				</div>
+			</div>
+		</nav>
+		<div class="container">
+			<div class="row">
+				<div v-for="aProject in projects" class="card card-block col-sm-12" @click="getProjectDetail(aProject.id)" data-toggle="modal" data-target="#detailModal">
+					<h4 class="card-title">{{ aProject.title }}</h4>
+					<p class="card-text">{{ aProject.description }}</p>
+				</div>
+				<div class="card card-block col-sm-12" data-toggle="modal" data-target="#newItemModal">
+					<p> </p>
+					<p class="text-xs-center"><i class="fa fa-plus-circle fa-5x fa-lg text-info text-xs-center"></i></p>
+				</div>
+			</div>
+		</div>
 
-	<!-- jQuery first, then Bootstrap JS. -->
+		<div v-if="projectDetail" class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4>{{ projectDetail.title }}</h4>
+					</div>
+					<div class="modal-body">
+						<p>{{ projectDetail.description }}</p>
+						<p><a v-if="projectDetail.url" href="{{ projectDetail.url }}" target="_blank">Link</a></p>
+						<span><i class="fa fa-clock-o"></i> {{ projectDetail.created_time }}</span>
+					</div>
+					<div class="modal-footer">
+						<div class="text-xs-left">
+							<div class="pull-sm-left">
+								<i class="fa fa-tags"></i>
+								<span v-if="!isTagsEditing">{{ tagText }} <button @click="editTags" type="button" class="btn btn-primary-outline btn-sm">Edit</button></span>
+								<span v-if="isTagsEditing" class="form-inline">
+									<div class="input-group input-group-sm">
+										<input v-model="tagText" type="text" class="form-control" />
+										<span class="input-group-btn"><button @click="updateTags" type="button" class="btn btn-primary"><i class="fa fa-refresh"></i></button></span>
+										<span class="input-group-btn"><button @click="cancelUpdateTags" type="button" class="btn btn-secondary"><i class="fa fa-remove"></i></button></span>
+									</div>
+								</span>
+							</div>
+							<div class="pull-sm-right">
+								<button @click="deleteProject" type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-exclamation-triangle"></i> Delete</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="newItemModal" tabindex="-1" role="dialog" aria-labelledby="newItemModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4>Add your project</h4>
+					</div>
+					<div class="modal-body">
+						<button @click="clearNewProject" type="button" class="btn btn-warning">Clear</button>
+						<div class="form-group">
+							<label class="form-control-label" for="titleInput">Title<span class="text-danger">*</span></label>
+							<input v-model="title" type="text" class="form-control" id="titleInput" />
+						</div>
+						<div class="form-group">
+							<label class="form-control-label" for="descriptionInput">Description<span class="text-danger">*</span></label>
+							<input v-model="description" type="text" class="form-control" id="descriptionInput" />
+						</div>
+						<div class="form-group">
+							<label class="form-control-label" for="urlInput">URL</label>
+							<input v-model="url" type="url" class="form-control" id="urlInput" />
+						</div>
+						<div class="form-group">
+							<label class="form-control-label" for="tagsInput">Tags (separate with comma)</label>
+							<input v-model="newTagText" type="text" class="form-control" id="tagsInput" />
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+						<button @click="addProject" type="button" class="btn btn-primary" :disabled="isInvalidProject" data-dismiss="modal"><i class="fa fa-thumbs-o-up"></i> Add</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end of "app" -->
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
 	<script src="./app.js"></script>
-	<script>
-		vm.getProjects();
-	</script>
 </body>
+
 </html>
