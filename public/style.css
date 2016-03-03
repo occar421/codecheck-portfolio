@@ -10,6 +10,7 @@ body.modal-open {
 
 .card {
 	box-shadow: 0 2px 3px 1px rgba(0, 0, 0, 0.1);
+	word-wrap: break-word;
 }
 
 #app > .container {
