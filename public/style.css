@@ -1,6 +1,6 @@
 ﻿body {
 	background-color: #E3DECC;
-	font-family: 'Lato', Arial, Helvetica, sans-serif;
+	font-family: 'Lato', Arial, Helvetica, 'ヒラギノ角ゴ Pro W3', Meiryo, sans-serif;
 }
 
 body.modal-open {
@@ -27,6 +27,10 @@ body.modal-open {
 	font-size: 1.5em;
 	color: #e6b422 !important;
 	text-shadow: 2px 2px 2px rgba(255, 237, 171, 0.5), -2px 2px 2px rgba(255, 237, 171, 0.6), 2px -2px 2px rgba(255, 237, 171, 0.6), -2px -2px 2px rgba(255, 237, 171, 0.5);
+}
+
+#detailModal {
+	word-wrap: break-word;
 }
 
 #detailModal input {
